@@ -1,7 +1,7 @@
 from debian:8.3
 
 env SDKVER 24.4.1
-env SDKDIR android-sdk-$SDKVER
+env SDKDIR android-sdk-$SDKVER-1
 env LANG C.UTF-8
 
 run apt-get update -y
