@@ -31,8 +31,8 @@ run apt-get install -y openjdk-7-jdk
 run apt-get install -y lib32stdc++6 lib32z1
 
 # Install SDK
-run wget -q -O android-sdk.tgz https://dl.google.com/android/android-sdk_r$SDKVER-linux.tgz
-run tar -x -z -f android-sdk.tgz
+run wget -O android-sdk.tgz https://dl.google.com/android/android-sdk_r$SDKVER-linux.tgz
+run tar -xzf android-sdk.tgz
 run mv android-sdk-linux $SDKDIR
 run rm android-sdk.tgz
 env ANDROID_HOME $PWD/$SDKDIR
