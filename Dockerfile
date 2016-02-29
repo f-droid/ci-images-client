@@ -17,7 +17,7 @@ run apt-get update && apt-get install -y --no-install-recommends \
 		virtualenv pyflakes pylint pep8 dash bash ruby \
 		python3 \
 		openjdk-7-jdk \
-		lib32stdc++6 lib32z1
+		lib32stdc++6 lib32z1 \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Install SDK
@@ -26,6 +26,6 @@ env ANDROID_HOME $PWD/android-sdk-linux
 env PATH $ANDROID_HOME/tools:$PATH
 
 # SDK components
-run echo y | android -s update sdk --no-ui -a -t platform-tools,tools,build-tools-23.0.2,android-23,extra-android-m2repository,android-10
+run echo y | android -s update sdk --no-ui -a -t platform-tools,build-tools-23.0.2,android-23,extra-android-m2repository,android-10
 env PATH $ANDROID_HOME/platform-tools:$PATH
 env PATH $ANDROID_HOME/build-tools/23.0.2:$PATH
