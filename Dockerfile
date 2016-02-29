@@ -14,7 +14,7 @@ run apt-get update && apt-get install -y --no-install-recommends \
 		python-git python-imaging python-libcloud python-logilab-astng \
 		python-paramiko python-pip python-pyasn1 python-pyasn1-modules \
 		python-requests python-virtualenv python-yaml \
-		pyflakes pylint pep8 dash bash ruby \
+		virtualenv pyflakes pylint pep8 dash bash ruby \
 		python3 \
 		openjdk-7-jdk \
 		lib32stdc++6 lib32z1
