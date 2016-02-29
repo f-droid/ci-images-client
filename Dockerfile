@@ -26,6 +26,6 @@ env ANDROID_HOME $PWD/android-sdk-linux
 env PATH $ANDROID_HOME/tools:$PATH
 
 # SDK components
-run echo y | android -s update sdk --no-ui -a -t platform-tools,tools,build-tools-23.0.2,android-22,extra-android-m2repository,android-10
+run echo y | android -s update sdk --no-ui -a -t platform-tools,tools,build-tools-23.0.2,android-23,extra-android-m2repository,android-10
 env PATH $ANDROID_HOME/platform-tools:$PATH
 env PATH $ANDROID_HOME/build-tools/23.0.2:$PATH
