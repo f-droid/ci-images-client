@@ -1,6 +1,5 @@
 from debian:8.3
 
-env SDKVER 24.4.1
 env LANG C.UTF-8
 
 # Misc tools
@@ -23,7 +22,7 @@ run apt-get update && apt-get install -y --no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Install SDK
-run wget -O sdk.tgz https://dl.google.com/android/android-sdk_r$SDKVER-linux.tgz && tar -xzf sdk.tgz && rm sdk.tgz
+run wget -O sdk.tgz https://dl.google.com/android/android-sdk_r24.4.1-linux.tgz && tar -xzf sdk.tgz && rm sdk.tgz
 env ANDROID_HOME $PWD/android-sdk-linux
 env PATH $ANDROID_HOME/tools:$PATH
 
