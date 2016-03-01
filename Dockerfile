@@ -13,10 +13,10 @@ run apt-get update && apt-get install -y --no-install-recommends \
 		python \
 		python-git python-imaging python-libcloud python-logilab-astng \
 		python-paramiko python-pip python-pyasn1 python-pyasn1-modules \
-		python-requests python-virtualenv python-yaml \
+		python-requests python-yaml \
 		virtualenv pyflakes pylint pep8 dash bash ruby \
-		python-dev libjpeg-dev zlib1g-dev \
-		python3 \
+		libjpeg-dev zlib1g-dev \
+		python3 python3-pip \
 		openjdk-7-jdk \
 		lib32stdc++6 lib32z1 \
 	&& rm -rf /var/lib/apt/lists/*
