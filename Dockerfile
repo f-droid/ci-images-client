@@ -5,6 +5,7 @@ env LANG C.UTF-8
 
 # Misc tools
 # Python 2 (fdroidserver) + deps + linters
+# Python 2 PIL deps
 # Python 3 (fdroidclient tools)
 # OpenJDK 7
 # Android SDK deps
@@ -15,6 +16,7 @@ run apt-get update && apt-get install -y --no-install-recommends \
 		python-paramiko python-pip python-pyasn1 python-pyasn1-modules \
 		python-requests python-virtualenv python-yaml \
 		virtualenv pyflakes pylint pep8 dash bash ruby \
+		python-dev libjpeg-dev zlib1g-dev \
 		python3 \
 		openjdk-7-jdk \
 		lib32stdc++6 lib32z1 \
