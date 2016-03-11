@@ -3,20 +3,17 @@ from debian:8.3
 env LANG C.UTF-8
 
 # Misc tools
-# Python 2 (fdroidserver) + deps + linters
-# Python 2 PIL deps
-# Python 3 (fdroidclient tools)
+# Python 3 (fdroidserver, fdroidclient/tools)
+# Deps for `fdroid lint` in fdroiddata
+# PIL build deps
 # OpenJDK 7
 # Android SDK deps
 run apt-get update && apt-get install -y --no-install-recommends \
 		wget tar git unzip rsync \
-		python \
-		python-git python-imaging python-libcloud python-logilab-astng \
-		python-paramiko python-pip python-pyasn1 python-pyasn1-modules \
-		python-requests python-yaml \
+		python3 python3-dev gcc python3-pip \
+		python3-yaml \
 		virtualenv pyflakes pylint pep8 dash bash ruby \
 		libjpeg-dev zlib1g-dev \
-		python3 python3-pip \
 		openjdk-7-jdk \
 		lib32stdc++6 lib32z1 \
 	&& rm -rf /var/lib/apt/lists/*
