@@ -24,6 +24,9 @@ run wget -O sdk.tgz https://dl.google.com/android/android-sdk_r24.4.1-linux.tgz 
 env ANDROID_HOME $PWD/android-sdk
 env PATH $ANDROID_HOME/tools:$PATH
 
-# SDK components
-run echo y | android -s update sdk --no-ui -a -t platform-tools,build-tools-23.0.2,android-23,extra-android-m2repository,android-10
+# SDK components - the sdk is too dumb to just use `yes`, it will read
+# more than one line per question
+# We only need the emulator images from android-10
+run { while true; do echo y; sleep 1; done } | android -s update sdk --no-ui -a -t platform-tools,build-tools-23.0.2,android-23,extra-android-m2repository,android-10 && \
+	rm -r $ANDROID_HOME/platforms/android-10/android.jar $ANDROID_HOME/platforms/android-10/data
 env PATH $ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/23.0.2:$PATH
