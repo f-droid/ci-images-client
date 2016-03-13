@@ -8,7 +8,8 @@ env LANG C.UTF-8
 # PIL build deps
 # OpenJDK 7
 # Android SDK deps
-run apt-get update && apt-get install -y --no-install-recommends \
+run echo "path-exclude=/usr/share/locale/*\npath-exclude=/usr/share/man/*\npath-exclude=/usr/share/doc/*\npath-include=/usr/share/doc/*/copyright" >/etc/dpkg/dpkg.cfg.d/01_nodoc && \
+	apt-get update && apt-get install -y --no-install-recommends \
 		wget tar git unzip rsync \
 		python3 python3-dev gcc python3-pip \
 		python3-yaml \
