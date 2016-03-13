@@ -13,7 +13,7 @@ run echo "path-exclude=/usr/share/locale/*\npath-exclude=/usr/share/man/*\npath-
 		wget tar git unzip rsync \
 		python3 python3-dev gcc python3-pip \
 		python3-yaml \
-		virtualenv pyflakes pylint pep8 dash bash ruby \
+		virtualenv dash bash ruby \
 		libjpeg-dev zlib1g-dev \
 		openjdk-7-jdk \
 		lib32stdc++6 lib32z1 \
