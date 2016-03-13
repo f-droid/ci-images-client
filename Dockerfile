@@ -20,8 +20,8 @@ run echo "path-exclude=/usr/share/locale/*\npath-exclude=/usr/share/man/*\npath-
 	&& rm -rf /var/lib/apt/lists/*
 
 # Install SDK
-run wget -O sdk.tgz https://dl.google.com/android/android-sdk_r24.4.1-linux.tgz && tar -xzf sdk.tgz && rm sdk.tgz
-env ANDROID_HOME $PWD/android-sdk-linux
+run wget -O sdk.tgz https://dl.google.com/android/android-sdk_r24.4.1-linux.tgz && tar -xzf sdk.tgz && rm sdk.tgz && mv android-sdk-linux android-sdk
+env ANDROID_HOME $PWD/android-sdk
 env PATH $ANDROID_HOME/tools:$PATH
 
 # SDK components
