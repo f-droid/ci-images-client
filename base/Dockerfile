@@ -26,5 +26,5 @@ env PATH $ANDROID_HOME/tools:$PATH
 
 # SDK components - the sdk is too dumb to just use `yes`, it will read
 # more than one line per question
-run { while true; do echo y; sleep 1; done } | android -s update sdk --no-ui -a -t platform-tools,build-tools-23.0.2,android-23,extra-android-m2repository,android-10
+run { while true; do echo y; sleep 1; done } | android -s update sdk --no-ui -a -t platform-tools,build-tools-23.0.2
 env PATH $ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/23.0.2:$PATH
