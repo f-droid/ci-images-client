@@ -1,4 +1,4 @@
-from debian:8.3
+from debian:8.4
 
 env LANG C.UTF-8
 
@@ -10,7 +10,7 @@ env LANG C.UTF-8
 # Android SDK deps
 run echo "path-exclude=/usr/share/locale/*\npath-exclude=/usr/share/man/*\npath-exclude=/usr/share/doc/*\npath-include=/usr/share/doc/*/copyright" >/etc/dpkg/dpkg.cfg.d/01_nodoc && \
 	apt-get update && apt-get install -y --no-install-recommends \
-		wget tar git unzip rsync \
+		wget curl tar git unzip rsync \
 		python3 python3-dev gcc python3-pip \
 		python3-yaml \
 		virtualenv pyflakes pylint pep8 dash bash ruby \
@@ -26,5 +26,5 @@ env PATH $ANDROID_HOME/tools:$PATH
 
 # SDK components - the sdk is too dumb to just use `yes`, it will read
 # more than one line per question
-run { while true; do echo y; sleep 1; done } | android -s update sdk --no-ui -a -t platform-tools,build-tools-23.0.2
-env PATH $ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/23.0.2:$PATH
+run { while true; do echo y; sleep 1; done } | android -s update sdk --no-ui -a -t platform-tools,build-tools-23.0.3
+env PATH $ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/23.0.3:$PATH
