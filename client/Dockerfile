@@ -1,4 +1,4 @@
-from mvdan/fdroid-ci:base-20160405
+from mvdan/fdroid-ci:base-20160429
 
 # SDK deps for the client (buiding & testing)
 

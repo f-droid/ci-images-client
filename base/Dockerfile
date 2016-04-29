@@ -5,22 +5,18 @@ env LANG C.UTF-8
 # Misc tools
 # Python 3 (fdroidserver, fdroidclient/tools)
 # Deps for `fdroid lint` in fdroiddata
-# PIL build deps
 # OpenJDK 7
-# Android SDK deps
+# Android SDK with common components
 run echo "path-exclude=/usr/share/locale/*\npath-exclude=/usr/share/man/*\npath-exclude=/usr/share/doc/*\npath-include=/usr/share/doc/*/copyright" >/etc/dpkg/dpkg.cfg.d/01_nodoc && \
 	apt-get update && apt-get install -y --no-install-recommends \
-		wget curl tar git unzip rsync \
-		python3 python3-dev gcc python3-pip python3-venv \
-		python3-yaml \
-		pyflakes pylint pep8 dash bash ruby \
-		libjpeg-dev zlib1g-dev \
+		wget curl tar git unzip \
+		python3 python3-yaml \
 		openjdk-7-jdk \
 		lib32stdc++6 lib32z1 \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Install SDK
-run wget -O sdk.tgz https://dl.google.com/android/android-sdk_r24.4.1-linux.tgz && tar -xzf sdk.tgz && rm sdk.tgz && mv android-sdk-linux android-sdk
+run wget -O tools.zip https://dl.google.com/android/repository/tools_r25.1.3-linux.zip && unzip tools.zip && rm tools.zip && mkdir android-sdk && mv tools android-sdk/
 env ANDROID_HOME $PWD/android-sdk
 env PATH $ANDROID_HOME/tools:$PATH
 
