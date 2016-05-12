@@ -1,4 +1,4 @@
-from mvdan/fdroid-ci:base-20160429
+from mvdan/fdroid-ci:base-20160512
 
 # These packages are used by the SDK emulator to gather info about the
 # system.
@@ -11,3 +11,11 @@ env LD_LIBRARY_PATH $ANDROID_HOME/tools/lib64/qt/lib:$LD_LIBRARY_PATH
 # SDK components - the sdk is too dumb to just use `yes`, it will read
 # more than one line per question
 run { while true; do echo y; sleep 1; done } | android -s update sdk --no-ui -a -t android-23,extra-android-m2repository
+run { while true; do echo y; sleep 1; done } | android -s update sdk --no-ui -a -t android-17,sys-img-armeabi-v7a-android-17
+
+# android-17 emulators default to having too much RAM
+run sed -i \
+	-e 's,^hw.ramSize=.*,hw.ramSize=384,' \
+	-e 's,^vm.heapSize=.*,vm.heapSize=48,' \
+	$ANDROID_HOME/platforms/android-17/skins/QVGA/hardware.ini
+run echo no | android --verbose create avd --name fcl-test-17 --skin QVGA --target android-17
