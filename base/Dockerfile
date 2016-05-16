@@ -16,7 +16,7 @@ run echo "path-exclude=/usr/share/locale/*\npath-exclude=/usr/share/man/*\npath-
 	&& rm -rf /var/lib/apt/lists/*
 
 # Install SDK
-run wget -O tools.zip https://dl.google.com/android/repository/tools_r25.1.3-linux.zip && unzip tools.zip && rm tools.zip && mkdir android-sdk && mv tools android-sdk/
+run wget -O tools.zip https://dl.google.com/android/repository/tools_r25.1.6-linux.zip && unzip tools.zip && rm tools.zip && mkdir android-sdk && mv tools android-sdk/
 env ANDROID_HOME $PWD/android-sdk
 env PATH $ANDROID_HOME/tools:$PATH
 
