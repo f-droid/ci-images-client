@@ -1,4 +1,4 @@
-from mvdan/fdroid-ci:base-20160516
+from mvdan/fdroid-ci:base-20160613
 
 # These packages are used by the SDK emulator to gather info about the
 # system.
