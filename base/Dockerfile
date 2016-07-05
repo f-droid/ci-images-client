@@ -1,17 +1,17 @@
-from debian:8.5
+from debian:jessie-backports
 
 env LANG C.UTF-8
 
 # Misc tools
 # Python 3 (fdroidserver, fdroidclient/tools)
 # Deps for `fdroid lint` in fdroiddata
-# OpenJDK 7
+# OpenJDK 8
 # Android SDK with common components
 run echo "path-exclude=/usr/share/locale/*\npath-exclude=/usr/share/man/*\npath-exclude=/usr/share/doc/*\npath-include=/usr/share/doc/*/copyright" >/etc/dpkg/dpkg.cfg.d/01_nodoc && \
 	apt-get update && apt-get install -y --no-install-recommends \
 		wget curl tar git unzip \
 		python3 python3-yaml \
-		openjdk-7-jdk \
+		openjdk-8-jdk-headless \
 		lib32stdc++6 lib32z1 \
 	&& rm -rf /var/lib/apt/lists/*
 
@@ -22,5 +22,5 @@ env PATH $ANDROID_HOME/tools:$PATH
 
 # SDK components - the sdk is too dumb to just use `yes`, it will read
 # more than one line per question
-run { while true; do echo y; sleep 1; done } | android -s update sdk --no-ui -a -t platform-tools,build-tools-23.0.3
-env PATH $ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/23.0.3:$PATH
+run { while true; do echo y; sleep 1; done } | android -s update sdk --no-ui -a -t platform-tools,build-tools-24.0.0
+env PATH $ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/24:$PATH

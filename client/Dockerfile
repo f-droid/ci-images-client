@@ -1,4 +1,4 @@
-from mvdan/fdroid-ci:base-20160613
+from mvdan/fdroid-ci:base-20160621
 
 # These packages are used by the SDK emulator to gather info about the
 # system.
@@ -16,10 +16,10 @@ run { while true; do echo y; sleep 1; done } | android -s update sdk --no-ui -a 
 # android-10 by default has ramSize=256 and heapSize=24
 run echo no | android --verbose create avd --name fcl-test-10 --target android-10
 
-run { while true; do echo y; sleep 1; done } | android -s update sdk --no-ui -a -t android-17,sys-img-armeabi-v7a-android-17
-# android-17 emulators default to having too much RAM
+run { while true; do echo y; sleep 1; done } | android -s update sdk --no-ui -a -t sys-img-armeabi-v7a-android-23
+# newer emulators default to having too much RAM
 run sed -i \
-	-e 's,^hw.ramSize=.*,hw.ramSize=384,' \
+	-e 's,^hw.ramSize=.*,hw.ramSize=512,' \
 	-e 's,^vm.heapSize=.*,vm.heapSize=48,' \
-	$ANDROID_HOME/platforms/android-17/skins/QVGA/hardware.ini
-run echo no | android --verbose create avd --name fcl-test-17 --skin QVGA --target android-17
+	$ANDROID_HOME/platforms/android-23/skins/QVGA/hardware.ini
+run echo no | android --verbose create avd --name fcl-test-23 --skin QVGA --target android-23
