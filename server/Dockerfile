@@ -1,4 +1,4 @@
-from mvdan/fdroid-ci:base-20160621
+from mvdan/fdroid-ci:base-20160731
 
 run apt-get update && apt-get install -y --no-install-recommends \
 		rsync gcc python3-dev python3-pip python3-venv \
