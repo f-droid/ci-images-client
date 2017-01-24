@@ -1,4 +1,4 @@
-from fdroid/ci:base-20161023
+from fdroid/ci:base-20161223
 
 # These packages are used by the SDK emulator to gather info about the
 # system.
