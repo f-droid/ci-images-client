@@ -13,6 +13,17 @@ run apt-get update && apt-get install -y --no-install-recommends \
 # the emulator sometimes can't fine these libraries from the SDK
 env LD_LIBRARY_PATH $ANDROID_HOME/tools/lib64/qt/lib:$LD_LIBRARY_PATH
 
+# The ConstraintLayout dependency works differently from other android-sdk components.
+# The other components are installed below, and thus we can pipe "y" to them to accept
+# licenses as they are installed. However the ConstraintLayout is installed at build-time
+# by gradle and thus we don't really have the option of accepting the license. Here is
+# a hack. See https://code.google.com/p/android/issues/detail?id=212128#c17 and
+# https://hub.docker.com/r/iluretar/gitlab-ci-android/~/dockerfile/.
+RUN mkdir -p $ANDROID_HOME/licenses/ \
+    && echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > $ANDROID_HOME/licenses/android-sdk-license \
+    && echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > $ANDROID_HOME/licenses/android-sdk-preview-license \
+    && echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.1" \
+    && echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.1"
 
 # SDK components - the android tool is too dumb to with its license prompting
 # so we have to install the packages one at a time to get reliability
