@@ -42,3 +42,5 @@ run sed -i \
     && echo no | android --verbose create avd --name fcl-test-${TARGET_SDK} --skin QVGA --target android-${TARGET_SDK}
 
 MAINTAINER team@f-droid.org
+
+COPY test /

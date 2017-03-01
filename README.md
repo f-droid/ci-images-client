@@ -17,3 +17,6 @@ Adds stuff that only the client tests need, like emulator images.
 ### server
 
 Adds stuff that only the server tests need, like python linters.
+
+These are built by gitlab-ci here:
+https://gitlab.com/fdroid/ci-images/
