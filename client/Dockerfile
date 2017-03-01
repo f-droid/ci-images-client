@@ -39,7 +39,8 @@ run sed -i \
 	-e 's,^hw.ramSize=.*,hw.ramSize=512,' \
 	-e 's,^vm.heapSize=.*,vm.heapSize=48,' \
 	$ANDROID_HOME/platforms/android-${TARGET_SDK}/skins/QVGA/hardware.ini \
-    && echo no | android --verbose create avd --name fcl-test-${TARGET_SDK} --skin QVGA --target android-${TARGET_SDK}
+    && echo no | android --verbose create avd --name fcl-test-${TARGET_SDK} --skin QVGA --target android-${TARGET_SDK} \
+    && df -h
 
 MAINTAINER team@f-droid.org
 
