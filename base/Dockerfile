@@ -1,6 +1,7 @@
 from debian:jessie-backports
 
 env LANG C.UTF-8
+env DEBIAN_FRONTEND noninteractive
 
 # Misc tools
 # Python 3 (fdroidserver, fdroidclient/tools)
