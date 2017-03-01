@@ -14,6 +14,7 @@ run echo "path-exclude=/usr/share/locale/*\npath-exclude=/usr/share/man/*\npath-
 		python3 python3-yaml \
 		openjdk-8-jdk-headless \
 		lib32stdc++6 lib32z1 \
+	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Install SDK
