@@ -1,0 +1,20 @@
+#!/bin/sh
+
+set -e
+set -x
+
+export TESTDIR=/builds/test
+export GRADLE_USER_HOME=$TESTDIR/.gradle
+
+mkdir -p $TESTDIR
+cd $TESTDIR
+
+git clone --depth 1 https://gitlab.com/fdroid/fdroidclient.git
+cd fdroidclient/app
+./tools/langs-list-check.py
+./tools/check-string-format.py
+cd ..
+
+./gradlew test
+
+rm -rf $TESTDIR
