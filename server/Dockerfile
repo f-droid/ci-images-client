@@ -1,4 +1,4 @@
-from fdroid/ci:base-20161223
+FROM registry.gitlab.com/fdroid/ci-images-base:20170314
 
 run apt-get update && apt-get install -y --no-install-recommends \
 		rsync gcc python3-dev python3-pip python3-venv \

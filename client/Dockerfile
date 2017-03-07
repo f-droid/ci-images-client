@@ -1,7 +1,4 @@
-#
-# Android image for GitLab CI
-
-FROM fdroid/ci:base-20161223
+FROM registry.gitlab.com/fdroid/ci-images-base:20170314
 
 # These packages are used by the SDK emulator to gather info about the
 # system.
