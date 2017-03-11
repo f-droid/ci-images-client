@@ -1,9 +1,30 @@
 FROM registry.gitlab.com/fdroid/ci-images-base:20170314
 
 run apt-get update && apt-get install -y --no-install-recommends \
-		rsync gcc python3-dev python3-pip python3-venv \
-		pyflakes pylint pep8 dash bash ruby texinfo \
-		libjpeg-dev zlib1g-dev libffi-dev libssl-dev \
+		bash \
+		dash \
+		gcc \
+		libjpeg-dev \
+		libffi-dev \
+		libssl-dev \
+		python3-clint \
+		python3-dev \
+		python3-git \
+		python3-libcloud \
+		python3-paramiko \
+		python3-pil \
+		python3-pip \
+		python3-pyasn1 \
+		python3-pyasn1-modules \
+		python3-requests \
+		python3-yaml \
+		python3-venv \
+		pyflakes \
+		pylint \
+		pep8 \
+		rsync \
+		ruby \
+		zlib1g-dev \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
