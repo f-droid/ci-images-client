@@ -27,10 +27,9 @@ RUN (while true; do sleep 5; echo y; done) | android --silent update sdk --no-ui
     "android-10,android-${TARGET_SDK},sys-img-armeabi-v7a-android-${TARGET_SDK},extra-android-m2repository"
 
 # android-10 by default has ramSize=256 and heapSize=24
-run echo no | android --verbose create avd --name fcl-test-10 --target android-10
-
-# newer emulators default to having too much RAM
-run sed -i \
+# newer emulators default to requiring too much RAM
+RUN echo no | android --verbose create avd --name fcl-test-10 --target android-10 \
+    && sed -i \
 	-e 's,^hw.ramSize=.*,hw.ramSize=512,' \
 	-e 's,^vm.heapSize=.*,vm.heapSize=48,' \
 	$ANDROID_HOME/platforms/android-${TARGET_SDK}/skins/QVGA/hardware.ini \
