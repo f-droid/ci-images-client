@@ -6,7 +6,6 @@ run apt-get update && apt-get install -y --no-install-recommends \
 		gcc \
 		libjpeg-dev \
 		libffi-dev \
-		libssl-dev \
 		python3-clint \
 		python3-dev \
 		python3-git \
@@ -25,6 +24,8 @@ run apt-get update && apt-get install -y --no-install-recommends \
 		rsync \
 		ruby \
 		zlib1g-dev \
+        && apt-get install -y --no-install-recommends -t jessie-backports \
+		libssl-dev \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
