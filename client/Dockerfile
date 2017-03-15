@@ -7,6 +7,11 @@ run apt-get update && apt-get install -y --no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& apt-get clean
 
+# SDK components - the android tool is too dumb to with its license prompting
+# so we have to install the packages one at a time to get reliability.
+# Also, the emulator can't find its own libraries from the SDK with LD_LIBRARY_PATH.
+ENV TARGET_SDK="24" LD_LIBRARY_PATH=$ANDROID_HOME/tools/lib64:$ANDROID_HOME/tools/lib64/qt/lib:$LD_LIBRARY_PATH
+
 # The ConstraintLayout dependency works differently from other android-sdk components.
 # The other components are installed below, and thus we can pipe "y" to them to accept
 # licenses as they are installed. However the ConstraintLayout is installed at build-time
@@ -17,13 +22,8 @@ RUN mkdir -p $ANDROID_HOME/licenses/ \
     && echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > $ANDROID_HOME/licenses/android-sdk-license \
     && echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > $ANDROID_HOME/licenses/android-sdk-preview-license \
     && echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.1" \
-    && echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.1"
-
-# SDK components - the android tool is too dumb to with its license prompting
-# so we have to install the packages one at a time to get reliability.
-# Also, the emulator can't find its own libraries from the SDK with LD_LIBRARY_PATH.
-ENV TARGET_SDK="24" LD_LIBRARY_PATH=$ANDROID_HOME/tools/lib64:$ANDROID_HOME/tools/lib64/qt/lib:$LD_LIBRARY_PATH
-RUN (while true; do sleep 5; echo y; done) | android --silent update sdk --no-ui --all --filter \
+    && echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.1" \
+    && (while true; do sleep 5; echo y; done) | android --silent update sdk --no-ui --all --filter \
     "android-10,android-${TARGET_SDK},sys-img-armeabi-v7a-android-${TARGET_SDK},extra-android-m2repository"
 
 # android-10 by default has ramSize=256 and heapSize=24
