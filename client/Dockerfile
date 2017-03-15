@@ -1,4 +1,5 @@
 FROM registry.gitlab.com/fdroid/ci-images-base:20170314
+MAINTAINER team@f-droid.org
 
 # These packages are used by the SDK emulator to gather info about the
 # system.
@@ -35,7 +36,5 @@ RUN echo no | android --verbose create avd --name fcl-test-10 --target android-1
 	$ANDROID_HOME/platforms/android-${TARGET_SDK}/skins/QVGA/hardware.ini \
     && echo no | android --verbose create avd --name fcl-test-${TARGET_SDK} --skin QVGA --target android-${TARGET_SDK} \
     && df -h
-
-MAINTAINER team@f-droid.org
 
 COPY test /

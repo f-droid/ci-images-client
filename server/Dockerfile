@@ -1,4 +1,5 @@
 FROM registry.gitlab.com/fdroid/ci-images-base:20170314
+MAINTAINER team@f-droid.org
 
 run apt-get update && apt-get install -y --no-install-recommends \
 		bash \
@@ -28,7 +29,5 @@ run apt-get update && apt-get install -y --no-install-recommends \
 		libssl-dev \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
-
-MAINTAINER team@f-droid.org
 
 COPY test /
