@@ -29,7 +29,7 @@ RUN mkdir -p $ANDROID_HOME/licenses/ \
 # so we have to install the packages one at a time to get reliability
 ENV TARGET_SDK="24"
 RUN (while true; do sleep 5; echo y; done) | android --silent update sdk --no-ui --all --filter \
-    "android-10,android-${TARGET_SDK},sys-img-x86-android-${TARGET_SDK},extra-android-m2repository"
+    "android-10,android-${TARGET_SDK},sys-img-armeabi-v7a-android-${TARGET_SDK},extra-android-m2repository"
 
 # android-10 by default has ramSize=256 and heapSize=24
 run echo no | android --verbose create avd --name fcl-test-10 --target android-10
