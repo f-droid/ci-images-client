@@ -20,13 +20,13 @@ run apt-get update && apt-get install -y --no-install-recommends \
 		python3-yaml \
 		python3-venv \
 		pyflakes \
-		pylint \
 		pep8 \
 		rsync \
 		ruby \
 		zlib1g-dev \
         && apt-get install -y --no-install-recommends -t jessie-backports \
 		libssl-dev \
+		pylint3 \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
