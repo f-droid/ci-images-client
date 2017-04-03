@@ -6,3 +6,7 @@ run apt-get update && apt-get install -y --no-install-recommends \
 		libjpeg-dev zlib1g-dev libffi-dev libssl-dev \
 	&& apt clean \
 	&& rm -rf /var/lib/apt/lists/*
+
+MAINTAINER team@f-droid.org
+
+COPY test /
