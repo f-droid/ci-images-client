@@ -11,7 +11,6 @@ cd $TESTDIR
 
 git clone --depth 1 https://gitlab.com/fdroid/fdroidclient.git
 cd fdroidclient/app
-./tools/langs-list-check.py
 ./tools/check-string-format.py
 cd ..
 
