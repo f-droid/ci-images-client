@@ -25,6 +25,7 @@ run apt-get update && apt-get install -y --no-install-recommends \
 		ruby \
 		zlib1g-dev \
         && apt-get install -y --no-install-recommends -t jessie-backports \
+		git \
 		libssl-dev \
 		pylint3 \
 	&& apt-get clean \
