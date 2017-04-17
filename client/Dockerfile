@@ -24,6 +24,8 @@ RUN mkdir -p $ANDROID_HOME/licenses/ \
     && echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > $ANDROID_HOME/licenses/android-sdk-preview-license \
     && echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.1" \
     && echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.1" \
+    && echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2" \
+    && echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2" \
     && (while true; do sleep 5; echo y; done) | android --silent update sdk --no-ui --all --filter \
     "android-10,android-${TARGET_SDK},sys-img-armeabi-v7a-android-${TARGET_SDK},extra-android-m2repository"
 
