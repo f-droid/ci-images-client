@@ -4,7 +4,10 @@ MAINTAINER team@f-droid.org
 # These packages are used by the SDK emulator to gather info about the
 # system.
 run apt-get update && apt-get install -y --no-install-recommends \
-		file pciutils mesa-utils \
+		file \
+                pciutils \
+                mesa-utils \
+                zip \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& apt-get clean
 
