@@ -10,10 +10,8 @@ mkdir -p $TESTDIR
 cd $TESTDIR
 
 git clone --depth 1 https://gitlab.com/fdroid/fdroidclient.git
-cd fdroidclient/app
-./tools/check-string-format.py
-cd ..
-
+cd fdroidclient
+./tools/check-format-strings.py
 ./gradlew test
 
 rm -rf $TESTDIR
