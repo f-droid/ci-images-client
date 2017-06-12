@@ -7,6 +7,7 @@ run apt-get update && apt-get install -y --no-install-recommends \
 		gcc \
 		libjpeg-dev \
 		libffi-dev \
+		make \
 		python3-clint \
 		python3-dev \
 		python3-git \
