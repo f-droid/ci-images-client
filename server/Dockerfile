@@ -20,7 +20,7 @@ run apt-get update && apt-get install -y --no-install-recommends \
 		python3-requests \
 		python3-yaml \
 		python3-venv \
-		pyflakes \
+		pyflakes3 \
 		pep8 \
 		rsync \
 		ruby \
