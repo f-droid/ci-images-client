@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/fdroid/ci-images-base:20170314
+FROM registry.gitlab.com/fdroid/ci-images-base:20170703
 MAINTAINER team@f-droid.org
 
 # These packages are used by the SDK emulator to gather info about the
