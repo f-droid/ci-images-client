@@ -12,6 +12,14 @@ cd $TESTDIR
 git clone --depth 1 https://gitlab.com/fdroid/fdroidclient.git
 cd fdroidclient
 ./tools/check-format-strings.py
-./gradlew test
+./gradlew test  || {
+    for log in `find app/build/reports -name '*ml'`; do
+        echo "read $log here:"
+        (cat "$log" | curl --silent -F 'clbin=<-' https://clbin.com) || true
+    done
+    exit 1
+}
+
+
 
 rm -rf $TESTDIR
