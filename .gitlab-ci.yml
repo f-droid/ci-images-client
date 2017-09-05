@@ -8,56 +8,28 @@ stages:
 - release
 
 variables:
-  CLIENT_TEST_IMAGE: registry.gitlab.com/$CI_PROJECT_NAMESPACE/${CI_PROJECT_NAME}:client-$CI_BUILD_REF_NAME
-  CLIENT_RELEASE_IMAGE: registry.gitlab.com/$CI_PROJECT_NAMESPACE/${CI_PROJECT_NAME}:client-latest
-  SERVER_TEST_IMAGE: registry.gitlab.com/$CI_PROJECT_NAMESPACE/${CI_PROJECT_NAME}:server-$CI_BUILD_REF_NAME
-  SERVER_RELEASE_IMAGE: registry.gitlab.com/$CI_PROJECT_NAMESPACE/${CI_PROJECT_NAME}:server-latest
+  TEST_IMAGE: registry.gitlab.com/$CI_PROJECT_NAMESPACE/${CI_PROJECT_NAME}:$CI_BUILD_REF_NAME
+  RELEASE_IMAGE: registry.gitlab.com/$CI_PROJECT_NAMESPACE/${CI_PROJECT_NAME}:latest
 
 before_script:
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
 
-clientbuild:
+build:
   stage: build
   script:
-    - cd client
-    - docker build -t $CLIENT_TEST_IMAGE .
-    - docker push $CLIENT_TEST_IMAGE
+    - docker build -t $TEST_IMAGE .
+    - docker push $TEST_IMAGE
 
-clienttest:
+test:
   stage: test
   script:
-    - cd client
-    - docker run $CLIENT_TEST_IMAGE /test
+    - docker run $TEST_IMAGE /test
 
-clientrelease:
+release:
   stage: release
   script:
-    - cd client
-    - docker pull $CLIENT_TEST_IMAGE
-    - docker tag $CLIENT_TEST_IMAGE $CLIENT_RELEASE_IMAGE
-    - docker push $CLIENT_RELEASE_IMAGE
-  only:
-    - master
-
-serverbuild:
-  stage: build
-  script:
-    - cd server
-    - docker build -t $SERVER_TEST_IMAGE .
-    - docker push $SERVER_TEST_IMAGE
-
-servertest:
-  stage: test
-  script:
-    - cd server
-    - docker run $SERVER_TEST_IMAGE /test
-
-serverrelease:
-  stage: release
-  script:
-    - cd server
-    - docker pull $SERVER_TEST_IMAGE
-    - docker tag $SERVER_TEST_IMAGE $SERVER_RELEASE_IMAGE
-    - docker push $SERVER_RELEASE_IMAGE
+    - docker pull $TEST_IMAGE
+    - docker tag $TEST_IMAGE $RELEASE_IMAGE
+    - docker push $RELEASE_IMAGE
   only:
     - master
