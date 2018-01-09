@@ -3,11 +3,18 @@ MAINTAINER team@f-droid.org
 
 # These packages are used by the SDK emulator to gather info about the
 # system.
-run apt-get update && apt-get install -y --no-install-recommends \
+
+run echo "deb http://deb.debian.org/debian/ stretch-backports main" > /etc/apt/sources.list.d/backports.list \
+	&& apt-get update \
+	&& apt-get dist-upgrade \
+	&& apt-get install -y --no-install-recommends \
+		fdroidserver/stretch-backports \
 		file \
-                pciutils \
-                mesa-utils \
-                zip \
+		pciutils \
+		python3-qrcode \
+		mesa-utils \
+		openssh-client \
+		zip \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& apt-get clean
 
