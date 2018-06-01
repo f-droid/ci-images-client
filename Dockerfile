@@ -27,8 +27,7 @@ RUN    echo y | $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-10" \
     && echo y | $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-${TARGET_SDK}" \
     && echo y | $ANDROID_HOME/tools/bin/sdkmanager "system-images;android-${TARGET_SDK};default;armeabi-v7a" \
     && echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2" \
-    && echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2" \
-    && echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;android;m2repository"
+    && echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
 
 # android-10 by default has ramSize=256 and heapSize=24
 # newer emulators default to requiring too much RAM
