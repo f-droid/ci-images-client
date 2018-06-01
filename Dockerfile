@@ -8,6 +8,7 @@ run echo "deb http://deb.debian.org/debian/ stretch-backports main" > /etc/apt/s
 	&& apt-get update \
 	&& apt-get -qy dist-upgrade \
 	&& apt-get -qy install --no-install-recommends \
+		androguard/stretch-backports \
 		fdroidserver/stretch-backports \
 		file \
 		pciutils \
