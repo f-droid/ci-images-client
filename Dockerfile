@@ -6,8 +6,8 @@ MAINTAINER team@f-droid.org
 
 run echo "deb http://deb.debian.org/debian/ stretch-backports main" > /etc/apt/sources.list.d/backports.list \
 	&& apt-get update \
-	&& apt-get dist-upgrade \
-	&& apt-get install -y --no-install-recommends \
+	&& apt-get -qy dist-upgrade \
+	&& apt-get -qy install --no-install-recommends \
 		fdroidserver/stretch-backports \
 		file \
 		pciutils \
@@ -15,8 +15,9 @@ run echo "deb http://deb.debian.org/debian/ stretch-backports main" > /etc/apt/s
 		mesa-utils \
 		openssh-client \
 		zip \
-	&& rm -rf /var/lib/apt/lists/* \
-	&& apt-get clean
+	&& apt-get -qy autoremove --purge \
+	&& apt-get clean \
+	&& rm -rf /var/lib/apt/lists/*
 
 # SDK components - the android tool is too dumb to with its license
 # prompting so we have to install the packages one at a time to get
