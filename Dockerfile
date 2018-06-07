@@ -29,21 +29,16 @@ run echo "deb http://deb.debian.org/debian/ stretch-backports main" > /etc/apt/s
 #
 # Google dropped the ;default; emulator flavor in android-25, so we
 # have to use google_apis :-|
-ENV MIN_SDK="14" \
-    AVD_SDK="25" \
-    MIN_TAG="default" \
-    TARGET_TAG="google_apis" \
+ENV AVD_SDK="25" \
+    AVD_TAG="google_apis" \
     LD_LIBRARY_PATH=$ANDROID_HOME/emulator/lib64:$ANDROID_HOME/emulator/lib64/qt/lib:$LD_LIBRARY_PATH \
     PATH=$ANDROID_HOME/emulator:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH
 
-ENV MIN_AVD="system-images;android-${MIN_SDK};${MIN_TAG};armeabi-v7a" \
-    TARGET_AVD="system-images;android-${AVD_SDK};${TARGET_TAG};armeabi-v7a"
+ENV AVD_PACKAGE="system-images;android-${AVD_SDK};${AVD_TAG};armeabi-v7a"
 
-RUN	   echo y | sdkmanager "platforms;android-${MIN_SDK}" \
-	&& echo y | sdkmanager "platforms;android-${AVD_SDK}" \
+RUN	   echo y | sdkmanager "platforms;android-${AVD_SDK}" \
 	&& echo y | sdkmanager "emulator" \
-	&& echo y | sdkmanager "$MIN_AVD" \
-	&& echo y | sdkmanager "$TARGET_AVD" \
+	&& echo y | sdkmanager "$AVD_PACKAGE" \
 	&& echo y | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2" \
 	&& echo y | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
 
@@ -53,7 +48,6 @@ RUN sed -i \
 		-e 's,^hw.ramSize=.*,hw.ramSize=512,' \
 		-e 's,^vm.heapSize=.*,vm.heapSize=48,' \
 		$ANDROID_HOME/platforms/android-*/skins/QVGA/hardware.ini \
-	&& echo no | avdmanager -v create avd --name avd$MIN_SDK --tag $MIN_TAG --package $MIN_AVD \
-	&& echo no | avdmanager -v create avd --name avd$AVD_SDK --tag $TARGET_TAG --package $TARGET_AVD
+	&& echo no | avdmanager -v create avd --name avd$AVD_SDK --tag $AVD_TAG --package $AVD_PACKAGE
 
 COPY test /
