@@ -12,7 +12,6 @@ run echo "deb http://deb.debian.org/debian/ stretch-backports main" > /etc/apt/s
 		fdroidserver/stretch-backports \
 		file \
 		pciutils \
-		python3-qrcode \
 		mesa-utils \
 		openssh-client \
 		zip \
