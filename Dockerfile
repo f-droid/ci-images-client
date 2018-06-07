@@ -40,7 +40,8 @@ RUN	   echo y | sdkmanager "platforms;android-${AVD_SDK}" \
 	&& echo y | sdkmanager "emulator" \
 	&& echo y | sdkmanager "$AVD_PACKAGE" \
 	&& echo y | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2" \
-	&& echo y | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
+	&& echo y | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2" \
+	&& echo y | $ANDROID_HOME/tools/bin/sdkmanager --update
 
 # android-10 by default has ramSize=256 and heapSize=24
 # newer emulators default to requiring too much RAM
