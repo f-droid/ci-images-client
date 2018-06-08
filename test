@@ -20,6 +20,10 @@ cd fdroidclient
     exit 1
 }
 
+avdmanager list avd
+emulator64-arm -avd avd$AVD_SDK -no-audio -no-window -no-accel &
+wait-for-emulator
+
 du -sh --one-file-system /* || true
 du -sh --one-file-system /var/* || true
 du -sh --one-file-system $ANDROID_HOME/* || true
