@@ -36,12 +36,12 @@ ENV AVD_SDK="25" \
 
 ENV AVD_PACKAGE="system-images;android-${AVD_SDK};${AVD_TAG};armeabi-v7a"
 
-RUN	   echo y | sdkmanager "platforms;android-${AVD_SDK}" \
-	&& echo y | sdkmanager "emulator" \
-	&& echo y | sdkmanager "$AVD_PACKAGE" \
-	&& echo y | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2" \
-	&& echo y | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2" \
-	&& echo y | $ANDROID_HOME/tools/bin/sdkmanager --update
+RUN	   echo y | sdkmanager "platforms;android-${AVD_SDK}" > /dev/null \
+	&& echo y | sdkmanager "emulator" > /dev/null \
+	&& echo y | sdkmanager "$AVD_PACKAGE" > /dev/null \
+	&& echo y | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2" > /dev/null \
+	&& echo y | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2" > /dev/null \
+	&& echo y | $ANDROID_HOME/tools/bin/sdkmanager --update > /dev/null
 
 COPY wait-for-emulator /usr/bin/
 
