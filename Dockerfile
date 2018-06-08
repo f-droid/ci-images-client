@@ -11,6 +11,7 @@ run echo "deb http://deb.debian.org/debian/ stretch-backports main" > /etc/apt/s
 		androguard/stretch-backports \
 		fdroidserver/stretch-backports \
 		file \
+		libpulse0 \
 		pciutils \
 		mesa-utils \
 		openssh-client \
