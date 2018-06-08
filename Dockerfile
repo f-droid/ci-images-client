@@ -30,11 +30,13 @@ run echo "deb http://deb.debian.org/debian/ stretch-backports main" > /etc/apt/s
 # Google dropped the ;default; emulator flavor in android-25, so we
 # have to use google_apis :-|
 ENV AVD_SDK="25" \
-    AVD_TAG="google_apis" \
+    AVD_TAG="fdroid_privext" \
     LD_LIBRARY_PATH=$ANDROID_HOME/emulator/lib64:$ANDROID_HOME/emulator/lib64/qt/lib:$LD_LIBRARY_PATH \
     PATH=$ANDROID_HOME/emulator:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH
 
 ENV AVD_PACKAGE="system-images;android-${AVD_SDK};${AVD_TAG};armeabi-v7a"
+
+COPY repositories.cfg /root/.android/
 
 RUN	   echo y | sdkmanager "platforms;android-${AVD_SDK}" > /dev/null \
 	&& echo y | sdkmanager "emulator" > /dev/null \
