@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sec=0
-timeout=360
+timeout=900
 
 err() {
 	echo "$@"
