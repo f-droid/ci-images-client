@@ -28,4 +28,6 @@ du -sh --one-file-system /* || true
 du -sh --one-file-system /var/* || true
 du -sh --one-file-system $ANDROID_HOME/* || true
 
-rm -rf $TESTDIR
+apt-get -qy update
+apt-get -qy install procps
+ps auxww
