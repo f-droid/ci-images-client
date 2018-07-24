@@ -26,11 +26,8 @@ run echo "deb http://deb.debian.org/debian/ stretch-backports main" > /etc/apt/s
 #
 # Also, the emulator can't find its own libraries from the SDK with
 # LD_LIBRARY_PATH.
-#
-# Google dropped the ;default; emulator flavor in android-25, so we
-# have to use google_apis :-|
-ENV AVD_SDK="25" \
-    AVD_TAG="fdroid_privext" \
+ENV AVD_SDK="24" \
+    AVD_TAG="default" \
     LD_LIBRARY_PATH=$ANDROID_HOME/emulator/lib64:$ANDROID_HOME/emulator/lib64/qt/lib:$LD_LIBRARY_PATH \
     PATH=$ANDROID_HOME/emulator:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH
 
