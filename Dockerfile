@@ -35,21 +35,21 @@ ENV AVD_PACKAGE="system-images;android-${AVD_SDK};${AVD_TAG};armeabi-v7a"
 
 COPY repositories.cfg /root/.android/
 
+# TODO get specific version (28.0.23?) of emulator:
+# https://dl.google.com/android/repository/repository2-1.xml
 RUN	   echo y | sdkmanager "platforms;android-${AVD_SDK}" > /dev/null \
-	&& echo y | sdkmanager "emulator" > /dev/null \
 	&& echo y | sdkmanager "$AVD_PACKAGE" > /dev/null \
 	&& echo y | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2" > /dev/null \
 	&& echo y | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2" > /dev/null \
-	&& echo y | $ANDROID_HOME/tools/bin/sdkmanager --update > /dev/null
+	&& echo y | $ANDROID_HOME/tools/bin/sdkmanager --update > /dev/null \
+	&& rm -rf $ANDROID_HOME/emulator \
+	&& wget -q https://dl.google.com/android/repository/emulator-linux-5264690.zip \
+	&& echo "48c1cda2bdf3095d9d9d5c010fbfb3d6d673e3ea  emulator-linux-5264690.zip" | sha1sum -c \
+	&& unzip -qq -d $ANDROID_HOME emulator-linux-5264690.zip \
+	&& echo no | avdmanager -v create avd --name avd$AVD_SDK --tag $AVD_TAG --package $AVD_PACKAGE \
+	&& grep -v '^License'   $ANDROID_HOME/tools/source.properties \
+				$ANDROID_HOME/emulator/source.properties \
+				$ANDROID_HOME/system-images/android-*/*/*/source.properties
 
 COPY wait-for-emulator /usr/bin/
-
-# android-10 by default has ramSize=256 and heapSize=24
-# newer emulators default to requiring too much RAM
-RUN sed -i \
-		-e 's,^hw.ramSize=.*,hw.ramSize=512,' \
-		-e 's,^vm.heapSize=.*,vm.heapSize=48,' \
-		$ANDROID_HOME/platforms/android-*/skins/QVGA/hardware.ini \
-	&& echo no | avdmanager -v create avd --name avd$AVD_SDK --tag $AVD_TAG --package $AVD_PACKAGE
-
 COPY test /

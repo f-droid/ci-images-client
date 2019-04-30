@@ -20,9 +20,15 @@ cd fdroidclient
     exit 1
 }
 
+emulator -accel-check || true
+grep -v '^License' $ANDROID_HOME/tools/source.properties \
+     $ANDROID_HOME/emulator/source.properties \
+     $ANDROID_HOME/system-images/android-*/*/*/source.properties
+
 avdmanager list avd
-emulator64-arm -avd avd$AVD_SDK -no-audio -no-window -no-accel &
+emulator -avd avd$AVD_SDK -no-audio -no-window -no-accel &
 wait-for-emulator
+./gradlew connectedFullDebugAndroidTest || (adb -e logcat -d '*:W'; exit 1)
 
 du -sh --one-file-system /* || true
 du -sh --one-file-system /var/* || true
