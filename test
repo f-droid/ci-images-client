@@ -28,7 +28,8 @@ grep -v '^License' $ANDROID_HOME/tools/source.properties \
 avdmanager list avd
 emulator -avd avd$AVD_SDK -no-audio -no-window -no-accel &
 wait-for-emulator
-./gradlew connectedFullDebugAndroidTest || (adb -e logcat -d '*:W'; exit 1)
+./gradlew connectedFullDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.notAnnotation=android.support.test.filters.LargeTest \
+    || (adb -e logcat -d '*:W'; exit 1)
 
 du -sh --one-file-system /* || true
 du -sh --one-file-system /var/* || true
