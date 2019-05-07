@@ -9,6 +9,9 @@ export GRADLE_USER_HOME=$TESTDIR/.gradle
 mkdir -p $TESTDIR
 cd $TESTDIR
 
+fdroid nightly -h
+fdroid init
+
 git clone --depth 1 https://gitlab.com/fdroid/fdroidclient.git
 cd fdroidclient
 ./tools/check-format-strings.py

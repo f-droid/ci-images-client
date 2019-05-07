@@ -1,15 +1,22 @@
 FROM registry.gitlab.com/fdroid/ci-images-base:20180615
 MAINTAINER team@f-droid.org
 
-# These packages are used by the SDK emulator to gather info about the
-# system.
-
-run echo "deb http://deb.debian.org/debian/ stretch-backports main" > /etc/apt/sources.list.d/backports.list \
+# This installs fdroidserver and all its requirements for things like
+# fdroid nightly.  Also, since ci-images-base strips out the docs, we
+# have to add in a fake fdroid-icon.png to make fdroid init happy.
+# Some of these packages are used by the SDK emulator to gather info
+# about the system.
+RUN \
+	printf "Package: androguard fdroidserver python3-asn1crypto\nPin: release a=stretch-backports\nPin-Priority: 500\n" \
+		> /etc/apt/preferences.d/debian-stretch-backports.pref \
+	&& echo "deb http://deb.debian.org/debian/ stretch-backports main" \
+		> /etc/apt/sources.list.d/backports.list \
 	&& apt-get update \
 	&& apt-get -qy dist-upgrade \
 	&& apt-get -qy install --no-install-recommends \
 		androguard/stretch-backports \
 		fdroidserver/stretch-backports \
+		python3-asn1crypto/stretch-backports \
 		file \
 		libpulse0 \
 		pciutils \
@@ -18,6 +25,9 @@ run echo "deb http://deb.debian.org/debian/ stretch-backports main" > /etc/apt/s
 		zip \
 	&& apt-get -qy autoremove --purge \
 	&& apt-get clean \
+	&& mkdir -p /usr/share/doc/fdroidserver/examples \
+	&& touch /usr/share/doc/fdroidserver/examples/fdroid-icon.png \
+	&& touch /usr/share/doc/fdroidserver/examples/config.py \
 	&& rm -rf /var/lib/apt/lists/*
 
 # SDK components - the android tool is too dumb to with its license
