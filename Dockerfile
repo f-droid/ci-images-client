@@ -50,8 +50,6 @@ COPY repositories.cfg /root/.android/
 # https://dl.google.com/android/repository/repository2-1.xml
 RUN	   echo y | sdkmanager "platforms;android-${AVD_SDK}" > /dev/null \
 	&& echo y | sdkmanager "$AVD_PACKAGE" > /dev/null \
-	&& echo y | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2" > /dev/null \
-	&& echo y | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2" > /dev/null \
 	&& echo y | $ANDROID_HOME/tools/bin/sdkmanager --update > /dev/null \
 	&& rm -rf $ANDROID_HOME/emulator \
 	&& wget -q https://dl.google.com/android/repository/emulator-linux-5264690.zip \
