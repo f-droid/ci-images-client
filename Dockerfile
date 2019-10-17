@@ -38,10 +38,11 @@ RUN \
 # LD_LIBRARY_PATH.
 ENV AVD_SDK="22" \
     AVD_TAG="default" \
+    AVD_ARCH="armeabi-v7a" \
     LD_LIBRARY_PATH=$ANDROID_HOME/emulator/lib64:$ANDROID_HOME/emulator/lib64/qt/lib:$LD_LIBRARY_PATH \
     PATH=$ANDROID_HOME/emulator:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH
 
-ENV AVD_PACKAGE="system-images;android-${AVD_SDK};${AVD_TAG};armeabi-v7a"
+ENV AVD_PACKAGE="system-images;android-${AVD_SDK};${AVD_TAG};${AVD_ARCH}"
 
 COPY repositories.cfg /root/.android/
 
