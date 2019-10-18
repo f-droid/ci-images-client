@@ -6,6 +6,9 @@ MAINTAINER team@f-droid.org
 # have to add in a fake fdroid-icon.png to make fdroid init happy.
 # Some of these packages are used by the SDK emulator to gather info
 # about the system.
+#
+# python3-qrcode runs update-alternatives on the man page, which fails
+# since the man page dirs are stripped via config in ci-images-base.
 RUN \
 	printf "Package: androguard fdroidserver python3-asn1crypto\nPin: release a=stretch-backports\nPin-Priority: 500\n" \
 		> /etc/apt/preferences.d/debian-stretch-backports.pref \
@@ -13,6 +16,7 @@ RUN \
 		> /etc/apt/sources.list.d/backports.list \
 	&& apt-get update \
 	&& apt-get -qy dist-upgrade \
+	&& apt-get -qy install --no-install-recommends python3-qrcode; true \
 	&& apt-get -qy install --no-install-recommends \
 		androguard/stretch-backports \
 		fdroidserver/stretch-backports \
