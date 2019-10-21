@@ -46,10 +46,11 @@ if [ "emulator" = $emulator ]; then
 	    zlib1g
 fi
 
-if ! avdmanager list avd | grep "Name. avd$AVD_SDK$"; then
+avd_name="avd_${AVD_SDK}_${AVD_TAG}_${AVD_ARCH}"
+if ! avdmanager list avd | grep "Name. $avd_name$"; then
     rm -rf ~/.android/avd  $ANDROID_HOME/system-images;
     echo y | sdkmanager "$AVD_PACKAGE" > /dev/null;
-    echo no | avdmanager create avd --name avd$AVD_SDK --tag "$AVD_TAG" --package "$AVD_PACKAGE" --sdcard 64M --device "Nexus 5";
+    echo no | avdmanager create avd --name $avd_name --tag "$AVD_TAG" --package "$AVD_PACKAGE" --sdcard 64M --device "Nexus 5";
     export RAMSIZE="`sed -n 's,^MemAvailable:[^0-9]*\([0-9][0-9]*\)[^0-9]*$,\1,p' /proc/meminfo`";
     if [ $RAMSIZE -le 2000000 ]; then
         sed -i '/^hw\.ramSize\s*=.*/d' ~/.android/avd/*.avd/config.ini;
