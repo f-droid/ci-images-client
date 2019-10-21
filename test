@@ -30,18 +30,11 @@ grep -v '^License' $ANDROID_HOME/tools/source.properties \
 
 avdmanager list avd
 adb start-server
-emulator -avd avd$AVD_SDK \
-         -no-audio \
-         -no-jni \
-         -no-snapstorage \
-         -no-window \
-         -skip-adb-auth \
-         -verbose \
-         -wipe-data \
-         -debug all,-hw_control,-qemud,-sensors,-surface \
-    &
 
+export CI_JOB_NAME="test $AVD_SDK $AVD_TAG $AVD_ARCH"
+start-emulator
 wait-for-emulator
+
 ./gradlew connectedFullDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.notAnnotation=android.support.test.filters.LargeTest \
     || (adb -e logcat -d '*:W'; exit 1)
 
