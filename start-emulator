@@ -67,7 +67,7 @@ DEFAULT_FLAGS='
  -skip-adb-auth
  -verbose
  -wipe-data
- -debug all,-hw_control,-qemud,-sensors,-surface
+ -debug all,-asconnector,-hw_control,-memory,-qemud,-sensors,-surface
 '
 
 grep -v '^License' $ANDROID_HOME/system-images/android-$AVD_SDK/$AVD_TAG/$AVD_ARCH/source.properties
