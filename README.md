@@ -25,7 +25,7 @@ well, albeit slower.
   image: registry.gitlab.com/fdroid/ci-images-client
   script:
     - ./gradlew assembleFullDebug # run this first to reduce concurrent RAM usage
-	- start-emulator
+    - start-emulator
     - wait-for-emulator
     - adb devices
     - adb shell input keyevent 82 &
