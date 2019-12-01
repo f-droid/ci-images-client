@@ -32,6 +32,8 @@ RUN \
 	&& mkdir -p /usr/share/doc/fdroidserver/examples \
 	&& touch /usr/share/doc/fdroidserver/examples/fdroid-icon.png \
 	&& touch /usr/share/doc/fdroidserver/examples/config.py \
+	&& sed -Ei 's,^(\s+.+)("archive_icon),\1"archive_description = '"\'archived old builds\'\\\\n"'"\n\1\2,g' \
+		/usr/lib/python3/dist-packages/fdroidserver/nightly.py \
 	&& rm -rf /var/lib/apt/lists/*
 
 # SDK components - the android tool is too dumb to with its license
