@@ -62,6 +62,7 @@ RUN	   echo y | sdkmanager "platforms;android-${AVD_SDK}" > /dev/null \
 	&& wget -q https://dl.google.com/android/repository/emulator-linux-5264690.zip \
 	&& echo "48c1cda2bdf3095d9d9d5c010fbfb3d6d673e3ea  emulator-linux-5264690.zip" | sha1sum -c \
 	&& unzip -qq -d $ANDROID_HOME emulator-linux-5264690.zip \
+	&& rm -f emulator-linux-5264690.zip \
 	&& echo no | avdmanager -v create avd --name $AVD_NAME --tag $AVD_TAG --package $AVD_PACKAGE \
 	&& grep -v '^License'   $ANDROID_HOME/tools/source.properties \
 				$ANDROID_HOME/emulator/source.properties \
