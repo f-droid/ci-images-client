@@ -51,8 +51,6 @@ ENV AVD_SDK="22" \
 ENV AVD_PACKAGE="system-images;android-${AVD_SDK};${AVD_TAG};${AVD_ARCH}" \
     AVD_NAME="avd_${AVD_SDK}_${AVD_TAG}_${AVD_ARCH}"
 
-COPY repositories.cfg /root/.android/
-
 # TODO get specific version (28.0.23?) of emulator:
 # https://dl.google.com/android/repository/repository2-1.xml
 RUN	   echo y | sdkmanager "platforms;android-${AVD_SDK}" > /dev/null \
