@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/fdroid/ci-images-base:20191017
+FROM registry.gitlab.com/fdroid/ci-images-base
 MAINTAINER team@f-droid.org
 
 # This installs fdroidserver and all its requirements for things like
