@@ -41,6 +41,7 @@ RUN	   echo y | sdkmanager --update > /dev/null \
 	&& grep -v '^License'   $ANDROID_HOME/tools/source.properties \
 				$ANDROID_HOME/emulator/source.properties
 
+COPY repositories.cfg /root/.android/
 COPY start-emulator /usr/bin/
 COPY wait-for-emulator /usr/bin/
 COPY test /
