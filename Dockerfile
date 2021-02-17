@@ -30,14 +30,14 @@ RUN 	apt-get update \
 ENV LD_LIBRARY_PATH=$ANDROID_HOME/emulator/lib64:$ANDROID_HOME/emulator/lib64/qt/lib:$LD_LIBRARY_PATH \
     PATH=$ANDROID_HOME/emulator:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH
 
-# TODO get specific version (28.0.23?) of emulator:
+# https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=android-emulator
 # https://dl.google.com/android/repository/repository2-1.xml
 RUN	   echo y | sdkmanager --update > /dev/null \
 	&& rm -rf $ANDROID_HOME/emulator \
-	&& wget -q https://dl.google.com/android/repository/emulator-linux-5264690.zip \
-	&& echo "48c1cda2bdf3095d9d9d5c010fbfb3d6d673e3ea  emulator-linux-5264690.zip" | sha1sum -c \
-	&& unzip -qq -d $ANDROID_HOME emulator-linux-5264690.zip \
-	&& rm -f emulator-linux-5264690.zip \
+	&& wget -q https://dl.google.com/android/repository/emulator-linux-7033400.zip \
+	&& echo "3cec9833ab787ed496f727a9e152332ef2b4b00c  emulator-linux-7033400.zip" | sha1sum -c \
+	&& unzip -qq -d $ANDROID_HOME emulator-linux-7033400.zip \
+	&& rm -f emulator-linux-7033400.zip \
 	&& grep -v '^License'   $ANDROID_HOME/tools/source.properties \
 				$ANDROID_HOME/emulator/source.properties
 

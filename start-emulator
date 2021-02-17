@@ -65,14 +65,15 @@ if ! avdmanager list avd | grep "Name. $avd_name$"; then
 fi
 
 DEFAULT_FLAGS='
+ -gpu swiftshader_indirect
  -no-audio
+ -no-boot-anim
  -no-jni
- -no-snapstorage
+ -no-snapshot
  -no-window
  -skip-adb-auth
  -verbose
  -wipe-data
- -debug all,-asconnector,-hw_control,-memory,-qemud,-sensors,-surface
 '
 
 grep -v '^License' $ANDROID_HOME/system-images/android-$AVD_SDK/$AVD_TAG/$AVD_ARCH/source.properties
@@ -84,7 +85,8 @@ if [ -n "$flags" ]; then
 elif [ -w /dev/kvm ]; then
     flags="$DEFAULT_FLAGS"
 else
-    flags="$DEFAULT_FLAGS"
+    echo "No KVM, using -no-accel"
+    flags="-no-accel $DEFAULT_FLAGS"
 fi
 
 $emulator -avd $avd_name $flags &

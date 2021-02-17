@@ -1,4 +1,8 @@
 #!/bin/bash
+#
+# Uses init.svc.bootanim to see if the emulator has started, which
+# works even when -no-boot-anim is used with the emulator.  This gives
+# more status info than using sys.boot_completed.
 
 sec=0
 timeout=900
