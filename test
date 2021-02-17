@@ -15,7 +15,12 @@ fdroid init
 git clone --depth 1 https://gitlab.com/fdroid/fdroidclient.git
 cd fdroidclient
 ./tools/check-format-strings.py
-./gradlew test
+
+cat /proc/meminfo
+maxmem=$(expr $(sed -n 's,^MemAvailable:[^0-9]*\([0-9][0-9]*\)[^0-9]*$,\1,p' /proc/meminfo) / 1024 / 2 / 1024 \* 1024)
+printf "\norg.gradle.jvmargs=-Xmx${maxmem}m -XX:MaxPermSize=${maxmem}m\norg.gradle.daemon=false\norg.gradle.parallel=false\n" >> local.properties
+
+./gradlew testFullDebugUnitTest
 test -z "$DEBUG_KEYSTORE" || fdroid nightly -v
 
 emulator -accel-check || true
