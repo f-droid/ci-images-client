@@ -8,11 +8,16 @@ export AVD_PACKAGE="system-images;android-${AVD_SDK};${AVD_TAG};${AVD_ARCH}"
 # https://androidstudio.googleblog.com/2019/02/emulator-2818-canary.html
 if [ -n "$emulator" ]; then
     echo "using user-provided emulator binary path"
-elif [ $AVD_ARCH = "x86" ] && [ -x $ANDROID_HOME/emulator/qemu/linux-x86_64/qemu-system-i386-headless ]; then
+elif [ $AVD_ARCH = "x86" ] \
+	 && [ -x $ANDROID_HOME/emulator/qemu/linux-x86_64/qemu-system-i386-headless ] \
+	 && which emulator-headless; then
     emulator=emulator-headless
-elif [ $AVD_ARCH = "armeabi-v7a" ] && [ -x $ANDROID_HOME/emulator/qemu/linux-x86_64/qemu-system-armel-headless ]; then
+elif [ $AVD_ARCH = "armeabi-v7a" ] \
+	 && [ -x $ANDROID_HOME/emulator/qemu/linux-x86_64/qemu-system-armel-headless ] \
+	 && which emulator-headless; then
     emulator=emulator-headless
-elif [ -x $ANDROID_HOME/emulator/qemu/linux-x86_64/qemu-system-${AVD_ARCH}-headless ]; then
+elif [ -x $ANDROID_HOME/emulator/qemu/linux-x86_64/qemu-system-${AVD_ARCH}-headless ] \
+	 && which emulator-headless; then
     emulator=emulator-headless
 else
     emulator=emulator
