@@ -14,9 +14,13 @@ variables:
 before_script:
   - echo $CI_BUILD_TOKEN | docker login -u gitlab-ci-token --password-stdin registry.gitlab.com
 
+
 build:
   stage: build
   script:
+    - apk add --no-cache bash
+    - for f in start-emulator test wait-for-emulator; do bash -n $f; done
+
     - docker build -t $TEST_IMAGE .
     - docker push $TEST_IMAGE
 
