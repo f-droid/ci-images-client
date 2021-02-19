@@ -73,6 +73,8 @@ DEFAULT_FLAGS='
  -skip-adb-auth
  -verbose
  -wipe-data
+ -shell-serial file:kernel.log
+ -logcat-output logcat.txt
 '
 
 grep -v '^License' $ANDROID_HOME/system-images/android-$AVD_SDK/$AVD_TAG/$AVD_ARCH/source.properties
