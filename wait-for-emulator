@@ -1,8 +1,8 @@
 #!/bin/bash
 #
-# Uses init.svc.bootanim to see if the emulator has started, which
-# works even when -no-boot-anim is used with the emulator.  This gives
-# more status info than using sys.boot_completed.
+# Uses sys.boot_completed to see if the emulator has started. This
+# uses init.svc.bootanim to output better status messages, since it
+# sometimes works even when -no-boot-anim is used with the emulator.
 
 sec=0
 timeout=900
@@ -24,6 +24,9 @@ explain() {
 	fi
 }
 
+adb -e wait-for-device
+adb devices
+
 while true; do
 	if [[ $sec -ge $timeout ]]; then
 		err "Timeout ($timeout seconds) reached - Failed to start emulator"
@@ -32,7 +35,7 @@ while true; do
 	if [[ "$out" =~ "command not found" ]]; then
 		err "$out"
 	fi
-	if [[ "$out" =~ "stopped" ]]; then
+	if [ "$(adb -e shell getprop sys.boot_completed | tr -d '\r')" = "1" ]; then
 		break
 	fi
 	let "r = sec % 5"
@@ -43,4 +46,4 @@ while true; do
 	let "sec++"
 done
 
-echo "Emulator is ready"
+echo "Emulator is ready (took ${sec})"
