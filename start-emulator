@@ -69,7 +69,7 @@ DEFAULT_FLAGS='
  -no-audio
  -no-boot-anim
  -no-jni
- -no-snapshot
+ -no-snapshot-save
  -no-window
  -skip-adb-auth
  -verbose
