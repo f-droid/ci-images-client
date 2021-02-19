@@ -54,7 +54,7 @@ fi
 avd_name="avd_${AVD_SDK}_${AVD_TAG}_${AVD_ARCH}"
 if ! avdmanager list avd | grep "Name. $avd_name$"; then
     rm -rf ~/.android/avd  $ANDROID_HOME/system-images;
-    echo y | sdkmanager "$AVD_PACKAGE" > /dev/null;
+    echo y | sdkmanager "$AVD_PACKAGE" "platforms;android-$AVD_SDK" > /dev/null;
     echo no | avdmanager create avd --name $avd_name --tag "$AVD_TAG" --package "$AVD_PACKAGE" --sdcard 64M --device "Nexus 5";
     export RAMSIZE="`sed -n 's,^MemAvailable:[^0-9]*\([0-9][0-9]*\)[^0-9]*$,\1,p' /proc/meminfo`";
     if [ $RAMSIZE -le 2000000 ]; then
@@ -68,7 +68,6 @@ DEFAULT_FLAGS='
  -gpu swiftshader_indirect
  -no-audio
  -no-boot-anim
- -no-jni
  -no-snapshot-save
  -no-window
  -skip-adb-auth
