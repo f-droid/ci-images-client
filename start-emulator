@@ -68,7 +68,7 @@ DEFAULT_FLAGS='
  -gpu swiftshader_indirect
  -no-audio
  -no-boot-anim
- -no-snapshot-save
+ -no-snapstorage
  -no-window
  -skip-adb-auth
  -verbose
