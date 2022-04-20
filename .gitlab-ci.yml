@@ -10,6 +10,7 @@ stages:
 variables:
   TEST_IMAGE: $CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME
   RELEASE_IMAGE: $CI_REGISTRY_IMAGE:latest
+  DEBIAN_RELEASE_IMAGE: $CI_REGISTRY_IMAGE:stretch
 
 before_script:
   - echo $CI_BUILD_TOKEN | docker login -u gitlab-ci-token --password-stdin registry.gitlab.com
@@ -46,5 +47,7 @@ release:
     - docker pull $TEST_IMAGE
     - docker tag $TEST_IMAGE $RELEASE_IMAGE
     - docker push $RELEASE_IMAGE
+    - docker tag $TEST_IMAGE $DEBIAN_RELEASE_IMAGE
+    - docker push $DEBIAN_RELEASE_IMAGE
   only:
     - master
