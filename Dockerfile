@@ -32,13 +32,8 @@ ENV LD_LIBRARY_PATH=$ANDROID_HOME/emulator/lib64:$ANDROID_HOME/emulator/lib64/qt
 RUN	. /etc/profile.d/bsenv.sh \
 	&& rm -rf $ANDROID_HOME/emulator \
 	&& rm -rf ~/.cache/sdkmanager \
-	&& /usr/bin/sdkmanager 'cmdline-tools;7.0' \
+	&& /usr/bin/sdkmanager 'cmdline-tools;7.0' 'emulator;30.3.5' \
 	&& rm -rf ~/.cache/sdkmanager \
-	&& curl --silent --remote-name --remote-header-name \
-		https://dl.google.com/android/repository/emulator-linux-7033400.zip \
-	&& echo "3cec9833ab787ed496f727a9e152332ef2b4b00c  emulator-linux-7033400.zip" | sha1sum -c \
-	&& unzip -qq -d $ANDROID_HOME emulator-linux-7033400.zip \
-	&& rm -f emulator-linux-7033400.zip \
 	&& grep -v '^License'   $ANDROID_HOME/tools/source.properties \
 				$ANDROID_HOME/emulator/source.properties
 
