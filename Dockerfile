@@ -25,12 +25,15 @@ RUN 	apt-get update \
 ENV ANDROID_HOME=/opt/android-sdk \
     ANDROID_SDK_ROOT=/opt/android-sdk
 ENV LD_LIBRARY_PATH=$ANDROID_HOME/emulator/lib64:$ANDROID_HOME/emulator/lib64/qt/lib:$LD_LIBRARY_PATH \
-    PATH=$ANDROID_HOME/emulator:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH
+    PATH=$ANDROID_HOME/emulator:$ANDROID_HOME/cmdline-tools/7.0/bin:$ANDROID_HOME/platform-tools:$PATH
 
 # https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=android-emulator
 # https://dl.google.com/android/repository/repository2-1.xml
 RUN	. /etc/profile.d/bsenv.sh \
 	&& rm -rf $ANDROID_HOME/emulator \
+	&& rm -rf ~/.cache/sdkmanager \
+	&& /usr/bin/sdkmanager 'cmdline-tools;7.0' \
+	&& rm -rf ~/.cache/sdkmanager \
 	&& curl --silent --remote-name --remote-header-name \
 		https://dl.google.com/android/repository/emulator-linux-7033400.zip \
 	&& echo "3cec9833ab787ed496f727a9e152332ef2b4b00c  emulator-linux-7033400.zip" | sha1sum -c \
