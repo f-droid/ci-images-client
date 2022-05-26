@@ -27,6 +27,8 @@ ENV ANDROID_HOME=/opt/android-sdk \
 ENV LD_LIBRARY_PATH=$ANDROID_HOME/emulator/lib64:$ANDROID_HOME/emulator/lib64/qt/lib:$LD_LIBRARY_PATH \
     PATH=$ANDROID_HOME/emulator:$ANDROID_HOME/cmdline-tools/7.0/bin:$ANDROID_HOME/platform-tools:$PATH
 
+RUN ls -l ~/.cache/sdkmanager || true
+
 # https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=android-emulator
 # https://dl.google.com/android/repository/repository2-1.xml
 RUN	. /etc/profile.d/bsenv.sh \
