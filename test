@@ -39,6 +39,7 @@ start-emulator
 wait-for-emulator
 
 export FLAG=-Pandroid.testInstrumentationRunnerArguments.notAnnotation=androidx.test.filters.LargeTest
+sed -i -e 's,textReport .*,textReport true,' app/build.gradle
 ./gradlew connectedFullDebugAndroidTest $FLAG \
     || (adb -e logcat -d '*:W'; exit 1)
 

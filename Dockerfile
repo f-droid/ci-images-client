@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/fdroid/ci-images-base
+FROM registry.gitlab.com/fdroid/fdroidserver:buildserver-bullseye
 MAINTAINER team@f-droid.org
 
 # This installs fdroidserver and all its requirements for things like
@@ -18,30 +18,40 @@ RUN 	apt-get update \
 		zip \
 	&& apt-get -qy autoremove --purge \
 	&& apt-get clean \
-	&& mkdir -p /usr/share/doc/fdroidserver/examples \
-	&& touch /usr/share/doc/fdroidserver/examples/fdroid-icon.png \
-	&& touch /usr/share/doc/fdroidserver/examples/config.py \
-	&& sed -Ei 's,^(\s+.+)("archive_icon),\1"archive_description = '"\'archived old builds\'\\\\n"'"\n\1\2,g' \
-		/usr/lib/python3/dist-packages/fdroidserver/nightly.py \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Also, the emulator can't find its own libraries from the SDK with
 # LD_LIBRARY_PATH.
+ENV ANDROID_HOME=/opt/android-sdk \
+    ANDROID_SDK_ROOT=/opt/android-sdk
 ENV LD_LIBRARY_PATH=$ANDROID_HOME/emulator/lib64:$ANDROID_HOME/emulator/lib64/qt/lib:$LD_LIBRARY_PATH \
-    PATH=$ANDROID_HOME/emulator:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH
+    PATH=$ANDROID_HOME/emulator:$ANDROID_HOME/cmdline-tools/7.0/bin:$ANDROID_HOME/platform-tools:$PATH
+
+RUN ls -l ~/.cache/sdkmanager || true
 
 # https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=android-emulator
 # https://dl.google.com/android/repository/repository2-1.xml
-RUN	   echo y | sdkmanager --update > /dev/null \
+RUN	. /etc/profile.d/bsenv.sh \
 	&& rm -rf $ANDROID_HOME/emulator \
-	&& wget -q https://dl.google.com/android/repository/emulator-linux-7033400.zip \
-	&& echo "3cec9833ab787ed496f727a9e152332ef2b4b00c  emulator-linux-7033400.zip" | sha1sum -c \
-	&& unzip -qq -d $ANDROID_HOME emulator-linux-7033400.zip \
-	&& rm -f emulator-linux-7033400.zip \
+	&& rm -rf ~/.cache/sdkmanager \
+	&& /usr/bin/sdkmanager 'cmdline-tools;7.0' 'emulator;30.3.5' \
+	&& rm -rf ~/.cache/sdkmanager \
 	&& grep -v '^License'   $ANDROID_HOME/tools/source.properties \
 				$ANDROID_HOME/emulator/source.properties
 
+# Long timeouts are helpful to make CI jobs fail less often.
+#
+# Disable gradle daemon, it is to speed up repeat builds, and gitlab
+# runners can have limited memory.  That means a running daemon's
+# memory cache will compete with the emulator.
+ENV ADB_INSTALL_TIMEOUT=8 \
+    GRADLE_USER_HOME=$HOME/.gradle \
+    GRADLE_OPTS=-Dorg.gradle.daemon=false
+RUN mkdir -p $GRADLE_USER_HOME && echo "org.gradle.daemon=false" >> $GRADLE_USER_HOME/gradle.properties
+
+RUN mkdir -p /root/.android/ /home/vagrant/.android/
 COPY repositories.cfg /root/.android/
+COPY repositories.cfg /home/vagrant/.android/
 COPY start-emulator /usr/bin/
 COPY wait-for-emulator /usr/bin/
 COPY test /

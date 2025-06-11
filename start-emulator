@@ -27,6 +27,8 @@ set -x
 
 # This block of packages comes directly from the Google setup:
 # https://github.com/google/android-emulator-container-scripts/blob/25bce20caa/emu/templates/Dockerfile#L23
+# and
+# https://code.briarproject.org/briar/ci-image-android-emulator/-/blob/d04b0d1ab1cfad7b31ff955f8b2dd79fcd470270/install.sh#L12
 # mesa-utils needs to be installed instead of libgl1, so that libgl1
 # comes from stretch and not stretch-backports.
 if [ "emulator" = $emulator ]; then
