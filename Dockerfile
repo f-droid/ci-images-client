@@ -23,6 +23,7 @@ RUN 	apt-get update \
 	&& touch /usr/share/doc/fdroidserver/examples/config.py \
 	&& sed -Ei 's,^(\s+.+)("archive_icon),\1"archive_description = '"\'archived old builds\'\\\\n"'"\n\1\2,g' \
 		/usr/lib/python3/dist-packages/fdroidserver/nightly.py \
+	&& sed -e '/common.apk_strip_v1_signatures/ s/^#*/#/' -i /usr/lib/python3/dist-packages/fdroidserver/nightly.py \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Also, the emulator can't find its own libraries from the SDK with
